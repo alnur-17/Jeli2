@@ -51,8 +51,14 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        headline: ["'Bebas Neue'", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        headline: ["var(--font-sans)", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        "display-sm": ["2.25rem", { lineHeight: "2.5rem", letterSpacing: "-0.02em" }],
+        "display-md": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
+        "display-lg": ["3.75rem", { lineHeight: "1.05", letterSpacing: "-0.03em" }],
+        "display-xl": ["4.5rem", { lineHeight: "1", letterSpacing: "-0.03em" }],
       },
       borderRadius: {
         lg: "var(--radius)",

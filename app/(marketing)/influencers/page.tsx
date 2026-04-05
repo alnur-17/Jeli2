@@ -64,7 +64,7 @@ export default function InfluencersPage() {
           <p className="text-xs font-semibold tracking-widest text-brand uppercase">
             Для инфлюенсеров
           </p>
-          <h1 className="font-headline text-[clamp(44px,7vw,76px)] leading-none uppercase text-foreground">
+          <h1 className="text-display-md md:text-display-lg font-semibold tracking-tight text-foreground text-balance">
             Работай с брендами{" "}
             <span className="text-brand">на своих условиях.</span>
           </h1>
@@ -133,7 +133,7 @@ export default function InfluencersPage() {
       <motion.section {...section} className="py-20 px-6">
         <div className="max-w-4xl mx-auto flex flex-col gap-10">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
               Платформа знает твою нишу
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -153,7 +153,7 @@ export default function InfluencersPage() {
       <motion.section {...section} className="py-20 px-6 bg-muted/40">
         <div className="max-w-3xl mx-auto flex flex-col gap-10">
           <div>
-            <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
               Честный скоринг — больше кампаний
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -168,7 +168,7 @@ export default function InfluencersPage() {
       {/* ESCROW */}
       <motion.section {...section} className="py-20 px-6">
         <div className="max-w-3xl mx-auto flex flex-col gap-6">
-          <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
             Деньги уже есть до того, как ты начал
           </h2>
           <p className="text-muted-foreground text-base leading-relaxed">
@@ -189,7 +189,7 @@ export default function InfluencersPage() {
       {/* AFFILIATE */}
       <motion.section {...section} className="py-20 px-6 bg-muted/40">
         <div className="max-w-3xl mx-auto flex flex-col gap-6">
-          <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
             Приводи коллег — получай бонусы
           </h2>
           <p className="text-muted-foreground text-base leading-relaxed">
@@ -209,7 +209,7 @@ export default function InfluencersPage() {
           {...section}
           className="max-w-xl mx-auto flex flex-col items-center gap-6"
         >
-          <h2 className="font-headline text-5xl uppercase text-foreground leading-none">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
             Начни зарабатывать с Jeli
           </h2>
           <Link

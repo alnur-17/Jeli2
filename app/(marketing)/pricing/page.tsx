@@ -105,7 +105,7 @@ function PlanCard({ plan }: { plan: PricingPlan }) {
         </span>
       )}
       <div>
-        <h3 className="font-headline text-3xl uppercase text-foreground leading-none">
+        <h3 className="text-xl font-semibold tracking-tight text-foreground">
           {plan.name}
         </h3>
         <p className="text-sm text-muted-foreground mt-1">{plan.description}</p>
@@ -143,7 +143,7 @@ export default function PricingPage() {
           transition={{ duration: 0.6 }}
           className="max-w-2xl mx-auto flex flex-col items-center gap-4"
         >
-          <h1 className="font-headline text-[clamp(44px,7vw,76px)] leading-none uppercase text-foreground">
+          <h1 className="text-display-md md:text-display-lg font-semibold tracking-tight text-foreground text-balance">
             Понятные тарифы
           </h1>
           <p className="text-lg text-muted-foreground">
@@ -184,7 +184,7 @@ export default function PricingPage() {
       {/* FAQ */}
       <motion.section {...section} className="py-20 px-6 bg-muted/40">
         <div className="max-w-3xl mx-auto flex flex-col gap-8">
-          <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
             Частые вопросы
           </h2>
           <Accordion>

@@ -12,7 +12,7 @@ export function InfluencerCard({
   avatarColor = "#0064FF",
 }: InfluencerCardProps) {
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 shadow-sm flex flex-col gap-4">
+    <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_24px_80px_-24px_rgba(15,23,42,0.12)] ring-1 ring-black/[0.04] dark:ring-white/[0.06] flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div
@@ -46,7 +46,7 @@ export function InfluencerCard({
           <span className="text-muted-foreground font-medium">Скоринг</span>
           <span className="font-bold text-brand">{score}/100</span>
         </div>
-        <div className="h-2 rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
+        <div className="h-2 rounded-full bg-muted overflow-hidden">
           <div
             className="h-full rounded-full bg-brand transition-all"
             style={{ width: `${score}%` }}

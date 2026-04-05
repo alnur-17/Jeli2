@@ -29,15 +29,15 @@ const doubled = [...allPills, ...allPills];
 
 export function Marquee() {
   return (
-    <div className="overflow-hidden py-4">
-      <div className="flex animate-marquee gap-3 w-max">
+    <div className="overflow-hidden py-3 border-y border-border/60 bg-muted/20">
+      <div className="flex animate-marquee gap-2 w-max">
         {doubled.map((pill, i) => (
           <span
             key={i}
             className={
               pill.broad
-                ? "bg-brand text-white text-sm font-semibold px-4 py-2 rounded-full whitespace-nowrap shrink-0"
-                : "border-2 border-brand text-brand text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap shrink-0"
+                ? "bg-foreground text-background text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shrink-0"
+                : "border border-border bg-background text-muted-foreground text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shrink-0"
             }
           >
             {pill.label}
@@ -54,7 +54,7 @@ export function Marquee() {
           }
         }
         .animate-marquee {
-          animation: marquee 30s linear infinite;
+          animation: marquee 40s linear infinite;
         }
       `}</style>
     </div>

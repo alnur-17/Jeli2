@@ -184,7 +184,7 @@ export default function BusinessesPage() {
       <motion.section {...section} className="py-20 px-6 bg-muted/40">
         <div className="max-w-4xl mx-auto flex flex-col gap-8">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
               Платишь только за вышедший контент
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">

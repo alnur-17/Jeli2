@@ -58,7 +58,7 @@ export default function ContactsPage() {
           transition={{ duration: 0.6 }}
           className="max-w-2xl mx-auto flex flex-col items-center gap-4"
         >
-          <h1 className="font-headline text-[clamp(44px,7vw,76px)] leading-none uppercase text-foreground">
+          <h1 className="text-display-md md:text-display-lg font-semibold tracking-tight text-foreground text-balance">
             Свяжитесь с нами
           </h1>
           <p className="text-lg text-muted-foreground">

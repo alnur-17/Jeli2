@@ -74,7 +74,7 @@ export default function HowPage() {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto flex flex-col items-center gap-6"
         >
-          <h1 className="font-headline text-[clamp(44px,7vw,76px)] leading-none uppercase text-foreground">
+          <h1 className="text-display-md md:text-display-lg font-semibold tracking-tight text-foreground text-balance">
             Всё в одном месте
           </h1>
           <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
@@ -87,7 +87,7 @@ export default function HowPage() {
       {/* DEAL CYCLE */}
       <motion.section {...section} className="py-16 px-6 bg-muted/40">
         <div className="max-w-4xl mx-auto flex flex-col gap-8">
-          <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
             Цикл сделки
           </h2>
           <DealChain steps={dealSteps} />
@@ -101,7 +101,7 @@ export default function HowPage() {
             <p className="text-xs font-semibold tracking-widest text-brand uppercase mb-2">
               Как считается скоринг
             </p>
-            <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none mb-3">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-3">
               Только живые аккаунты
             </h2>
             <p className="text-muted-foreground text-base">
@@ -138,7 +138,7 @@ export default function HowPage() {
       <motion.section {...section} className="py-20 px-6 bg-muted/40">
         <div className="max-w-4xl mx-auto flex flex-col gap-10">
           <div>
-            <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none mb-3">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-3">
               Двухслойные теги
             </h2>
             <p className="text-muted-foreground text-base max-w-xl">
@@ -157,7 +157,7 @@ export default function HowPage() {
       {/* FAQ */}
       <motion.section {...section} className="py-20 px-6">
         <div className="max-w-3xl mx-auto flex flex-col gap-8">
-          <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
             Частые вопросы
           </h2>
           <Accordion>
