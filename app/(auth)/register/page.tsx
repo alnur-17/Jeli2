@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { StepWrapper } from "@/components/auth/StepWrapper";
 import { RoleSelector } from "@/components/auth/RoleSelector";
 
@@ -27,6 +28,7 @@ import {
 import { createClient } from "@/lib/supabase/client";
 
 export default function RegisterPage() {
+  const router = useRouter();
   const [role, setRole] = useState<Role | null>(null);
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -135,13 +137,20 @@ export default function RegisterPage() {
         if (socialError) throw new Error(socialError.message);
       }
 
+      // Sign in to create a session immediately (works when email confirm is off)
+      await supabase.auth.signInWithPassword({
+        email: influencerData.email,
+        password: influencerData.password,
+      });
+
       setSuccess(true);
+      router.push("/app/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
       setIsSubmitting(false);
     }
-  }, [influencerData, isSubmitting, success]);
+  }, [influencerData, isSubmitting, success, router]);
 
   const handleSubmitBusiness = useCallback(async () => {
     if (isSubmitting || success) return;
@@ -180,13 +189,20 @@ export default function RegisterPage() {
         });
       if (bizError) throw new Error(bizError.message);
 
+      // Sign in to create a session immediately (works when email confirm is off)
+      await supabase.auth.signInWithPassword({
+        email: businessData.email,
+        password: businessData.password,
+      });
+
       setSuccess(true);
+      router.push("/app/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
       setIsSubmitting(false);
     }
-  }, [businessData, isSubmitting, success]);
+  }, [businessData, isSubmitting, success, router]);
 
   // Render: step 0 = role selector
   if (!role || step === 0) {
