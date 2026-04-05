@@ -46,11 +46,8 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-6xl mx-auto px-5 sm:px-6 h-14 flex items-center justify-between gap-4">
-          <Link
-            href="/"
-            className="shrink-0 text-lg font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity"
-          >
-            Jeli
+          <Link href="/" className="shrink-0 hover:opacity-80 transition-opacity">
+            <img src="/jeli-logo.svg" alt="Jeli" className="h-6 w-auto" />
           </Link>
 
           <nav

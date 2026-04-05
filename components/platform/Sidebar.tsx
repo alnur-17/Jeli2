@@ -25,9 +25,6 @@ const navItems = [
   { href: "/app/notifications", icon: Bell, label: "Уведомления" },
 ];
 
-const LogoPlaceholder = () => (
-  <div style={{ width: 72, height: 28, background: "#2a2a2a", borderRadius: 4 }} />
-);
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -40,8 +37,8 @@ export function Sidebar() {
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="px-5 py-5 border-b border-white/5">
-        <Link href="/app/dashboard" onClick={() => setMobileOpen(false)}>
-          <LogoPlaceholder />
+        <Link href="/app/dashboard" onClick={() => setMobileOpen(false)} className="hover:opacity-80 transition-opacity">
+          <img src="/jeli-logo.svg" alt="Jeli" className="h-5 w-auto brightness-0 invert" />
         </Link>
       </div>
 
