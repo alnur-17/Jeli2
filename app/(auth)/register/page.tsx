@@ -122,27 +122,35 @@ export default function RegisterPage() {
         if (nicheError) throw new Error(nicheError.message);
       }
 
-      // social_accounts
+      // social_accounts — only insert fields that exist in schema
       if (influencerData.social_accounts.length > 0) {
         const { error: socialError } = await supabase
           .from("social_accounts")
           .insert(
             influencerData.social_accounts.map((a) => ({
               influencer_id: user.id,
-              ...a,
+              platform: a.platform,
+              handle: a.username,
+              followers_count: a.followers_count ?? 0,
+              engagement_rate: 0,
             }))
           );
         if (socialError) throw new Error(socialError.message);
       }
 
-      // Sign in to create a session immediately (works when email confirm is off)
-      await supabase.auth.signInWithPassword({
+      // Try to get a session immediately (only works if email confirmation is disabled)
+      const { data: signInData } = await supabase.auth.signInWithPassword({
         email: influencerData.email,
         password: influencerData.password,
       });
 
       setSuccess(true);
-      window.location.href = "/app/dashboard";
+
+      if (signInData?.session) {
+        window.location.href = "/app/dashboard";
+      }
+      // If no session — email confirmation is required.
+      // Step5Welcome shows a manual "Go to dashboard" button.
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
@@ -187,14 +195,17 @@ export default function RegisterPage() {
         });
       if (bizError) throw new Error(bizError.message);
 
-      // Sign in to create a session immediately (works when email confirm is off)
-      await supabase.auth.signInWithPassword({
+      // Try to get a session immediately (only works if email confirmation is disabled)
+      const { data: signInData } = await supabase.auth.signInWithPassword({
         email: businessData.email,
         password: businessData.password,
       });
 
       setSuccess(true);
-      window.location.href = "/app/dashboard";
+
+      if (signInData?.session) {
+        window.location.href = "/app/dashboard";
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
