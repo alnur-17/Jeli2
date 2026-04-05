@@ -1,11 +1,5 @@
 import Link from "next/link";
 
-const LogoPlaceholder = () => (
-  <div
-    style={{ width: 80, height: 32, background: "#E5E5E5", borderRadius: 4 }}
-  />
-);
-
 export default function AuthLayout({
   children,
 }: {
@@ -23,8 +17,8 @@ export default function AuthLayout({
 
       {/* Logo top-left */}
       <div className="absolute top-6 left-6">
-        <Link href="/">
-          <LogoPlaceholder />
+        <Link href="/" className="hover:opacity-70 transition-opacity">
+          <img src="/jeli-logo.svg" alt="Jeli" className="h-6 w-auto dark:brightness-0 dark:invert" />
         </Link>
       </div>
 
