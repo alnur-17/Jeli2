@@ -9,7 +9,7 @@ const BUSINESS_ROUTES = [
   "/app/ai-manager",
 ];
 
-// Influencer-only routes (to be built later)
+// Influencer-only routes
 const INFLUENCER_ROUTES = [
   "/app/influencer-dashboard",
   "/app/offers",
@@ -18,51 +18,24 @@ const INFLUENCER_ROUTES = [
   "/app/my-stats",
 ];
 
-// All protected platform routes
-const PROTECTED_PREFIXES = ["/app/"];
-
-// Public routes — no auth required
-const PUBLIC_ROUTES = [
-  "/login",
-  "/register",
-  "/reset-password",
-  "/",
-  "/businesses",
-  "/influencers",
-  "/how",
-  "/pricing",
-  "/contacts",
-];
-
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  // If env vars missing, allow public routes and block /app/*
   if (!supabaseUrl || !supabaseKey) {
-    if (request.nextUrl.pathname.startsWith("/app")) {
+    if (pathname.startsWith("/app")) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     return NextResponse.next();
   }
 
-  const response = NextResponse.next();
-
-  const supabase = createServerClient(supabaseUrl, supabaseKey,
-    {
-      cookies: {
-        getAll: () => request.cookies.getAll(),
-        setAll: (c) =>
-          c.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          ),
-      },
-    }
-  );
-
+  const { supabase, supabaseResponse } = createMiddlewareClient(request);
 
   // Only protect /app/* routes
-  if (!PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) {
+  if (!pathname.startsWith("/app/")) {
     return supabaseResponse;
   }
 
@@ -94,7 +67,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/app/influencer-dashboard", request.url));
   }
 
-  // Redirect to role-specific dashboard from /app/dashboard if influencer
+  // Redirect influencer from /app/dashboard to their own dashboard
   if (role === "influencer" && pathname === "/app/dashboard") {
     return NextResponse.redirect(new URL("/app/influencer-dashboard", request.url));
   }
