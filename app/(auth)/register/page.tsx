@@ -138,19 +138,24 @@ export default function RegisterPage() {
         if (socialError) throw new Error(socialError.message);
       }
 
-      // Try to get a session immediately (only works if email confirmation is disabled)
-      const { data: signInData } = await supabase.auth.signInWithPassword({
-        email: influencerData.email,
-        password: influencerData.password,
-      });
-
       setSuccess(true);
 
-      if (signInData?.session) {
+      // Redirect if signUp already gave us a session (email confirm disabled)
+      // or after signIn succeeds
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
         window.location.href = "/app/dashboard";
+      } else {
+        // Email confirmation required — try signing in anyway
+        const { data: signInData } = await supabase.auth.signInWithPassword({
+          email: influencerData.email,
+          password: influencerData.password,
+        });
+        if (signInData?.session) {
+          window.location.href = "/app/dashboard";
+        }
+        // else: user needs to confirm email, Step5Welcome shows button
       }
-      // If no session — email confirmation is required.
-      // Step5Welcome shows a manual "Go to dashboard" button.
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
@@ -195,16 +200,19 @@ export default function RegisterPage() {
         });
       if (bizError) throw new Error(bizError.message);
 
-      // Try to get a session immediately (only works if email confirmation is disabled)
-      const { data: signInData } = await supabase.auth.signInWithPassword({
-        email: businessData.email,
-        password: businessData.password,
-      });
-
       setSuccess(true);
 
-      if (signInData?.session) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
         window.location.href = "/app/dashboard";
+      } else {
+        const { data: signInData } = await supabase.auth.signInWithPassword({
+          email: businessData.email,
+          password: businessData.password,
+        });
+        if (signInData?.session) {
+          window.location.href = "/app/dashboard";
+        }
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
