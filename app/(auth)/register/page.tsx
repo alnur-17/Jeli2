@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
 import { StepWrapper } from "@/components/auth/StepWrapper";
 import { RoleSelector } from "@/components/auth/RoleSelector";
 
@@ -28,7 +27,6 @@ import {
 import { createClient } from "@/lib/supabase/client";
 
 export default function RegisterPage() {
-  const router = useRouter();
   const [role, setRole] = useState<Role | null>(null);
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -144,13 +142,13 @@ export default function RegisterPage() {
       });
 
       setSuccess(true);
-      router.push("/app/dashboard");
+      window.location.href = "/app/dashboard";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
       setIsSubmitting(false);
     }
-  }, [influencerData, isSubmitting, success, router]);
+  }, [influencerData, isSubmitting, success]);
 
   const handleSubmitBusiness = useCallback(async () => {
     if (isSubmitting || success) return;
@@ -196,13 +194,13 @@ export default function RegisterPage() {
       });
 
       setSuccess(true);
-      router.push("/app/dashboard");
+      window.location.href = "/app/dashboard";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
     } finally {
       setIsSubmitting(false);
     }
-  }, [businessData, isSubmitting, success, router]);
+  }, [businessData, isSubmitting, success]);
 
   // Render: step 0 = role selector
   if (!role || step === 0) {
