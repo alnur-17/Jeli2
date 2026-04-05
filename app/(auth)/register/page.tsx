@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { StepWrapper } from "@/components/auth/StepWrapper";
 import { RoleSelector } from "@/components/auth/RoleSelector";
 
@@ -37,6 +37,7 @@ export default function RegisterPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const submittingRef = useRef(false);
 
   function handleSelectRole(r: Role) {
     setRole(r);
@@ -72,35 +73,33 @@ export default function RegisterPage() {
   }
 
   const handleSubmitInfluencer = useCallback(async () => {
-    if (isSubmitting || success) return;
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     setIsSubmitting(true);
     setError(null);
 
-    const supabase = createClient();
-    try {
-      const { data: signUpData, error: signUpError } =
-        await supabase.auth.signUp({
-          email: influencerData.email,
-          password: influencerData.password,
-          options: {
-            data: { role: "influencer", username: influencerData.username },
-          },
-        });
+    const timeout = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Превышено время ожидания. Проверьте соединение.")), 15000)
+    );
 
+    const run = async () => {
+      const supabase = createClient();
+
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: influencerData.email,
+        password: influencerData.password,
+        options: { data: { role: "influencer", username: influencerData.username } },
+      });
       if (signUpError) throw new Error(signUpError.message);
       const user = signUpData.user;
       if (!user) throw new Error("Не удалось создать аккаунт");
 
-      // profiles
       const { error: profileError } = await supabase
-        .from("profiles")
-        .insert({ id: user.id, role: "influencer" });
-      if (profileError) throw new Error(profileError.message);
+        .from("profiles").insert({ id: user.id, role: "influencer" });
+      if (profileError) throw new Error(`profiles: ${profileError.message}`);
 
-      // influencer_profiles
       const { error: infError } = await supabase
-        .from("influencer_profiles")
-        .insert({
+        .from("influencer_profiles").insert({
           id: user.id,
           username: influencerData.username,
           full_name: influencerData.full_name || null,
@@ -108,88 +107,78 @@ export default function RegisterPage() {
           gender: influencerData.gender || null,
           age: influencerData.age ? parseInt(influencerData.age) : null,
         });
-      if (infError) throw new Error(infError.message);
+      if (infError) throw new Error(`influencer_profiles: ${infError.message}`);
 
-      // niches
       if (influencerData.niches.length > 0) {
         const { error: nicheError } = await supabase.from("niches").insert(
-          influencerData.niches.map((n) => ({
-            influencer_id: user.id,
-            parent: n.parent,
-            children: n.children,
+          influencerData.niches.map((n) => ({ influencer_id: user.id, parent: n.parent, children: n.children }))
+        );
+        if (nicheError) throw new Error(`niches: ${nicheError.message}`);
+      }
+
+      if (influencerData.social_accounts.length > 0) {
+        const { error: socialError } = await supabase.from("social_accounts").insert(
+          influencerData.social_accounts.map((a) => ({
+            influencer_id: user.id, platform: a.platform,
+            handle: a.username, followers_count: a.followers_count ?? 0, engagement_rate: 0,
           }))
         );
-        if (nicheError) throw new Error(nicheError.message);
+        if (socialError) throw new Error(`social_accounts: ${socialError.message}`);
       }
 
-      // social_accounts — only insert fields that exist in schema
-      if (influencerData.social_accounts.length > 0) {
-        const { error: socialError } = await supabase
-          .from("social_accounts")
-          .insert(
-            influencerData.social_accounts.map((a) => ({
-              influencer_id: user.id,
-              platform: a.platform,
-              handle: a.username,
-              followers_count: a.followers_count ?? 0,
-              engagement_rate: 0,
-            }))
-          );
-        if (socialError) throw new Error(socialError.message);
-      }
+      // Get session (works if email confirmation is disabled in Supabase)
+      const { data: { session } } = await supabase.auth.getSession();
+      return { supabase, session };
+    };
 
+    try {
+      const { supabase, session } = await Promise.race([run(), timeout]);
       setSuccess(true);
 
-      // Redirect if signUp already gave us a session (email confirm disabled)
-      // or after signIn succeeds
-      const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         window.location.href = "/app/dashboard";
       } else {
-        // Email confirmation required — try signing in anyway
-        const { data: signInData } = await supabase.auth.signInWithPassword({
+        const { data } = await supabase.auth.signInWithPassword({
           email: influencerData.email,
           password: influencerData.password,
         });
-        if (signInData?.session) {
-          window.location.href = "/app/dashboard";
-        }
-        // else: user needs to confirm email, Step5Welcome shows button
+        if (data?.session) window.location.href = "/app/dashboard";
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
+      submittingRef.current = false;
     } finally {
       setIsSubmitting(false);
     }
-  }, [influencerData, isSubmitting, success]);
+  }, [influencerData]);
 
   const handleSubmitBusiness = useCallback(async () => {
-    if (isSubmitting || success) return;
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     setIsSubmitting(true);
     setError(null);
 
-    const supabase = createClient();
-    try {
-      const { data: signUpData, error: signUpError } =
-        await supabase.auth.signUp({
-          email: businessData.email,
-          password: businessData.password,
-        });
+    const timeout = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Превышено время ожидания. Проверьте соединение.")), 15000)
+    );
 
+    const run = async () => {
+      const supabase = createClient();
+
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: businessData.email,
+        password: businessData.password,
+      });
       if (signUpError) throw new Error(signUpError.message);
       const user = signUpData.user;
       if (!user) throw new Error("Не удалось создать аккаунт");
 
-      // profiles
       const { error: profileError } = await supabase
-        .from("profiles")
-        .insert({ id: user.id, role: "business" });
-      if (profileError) throw new Error(profileError.message);
+        .from("profiles").insert({ id: user.id, role: "business" });
+      if (profileError) throw new Error(`profiles: ${profileError.message}`);
 
-      // business_profiles
       const { error: bizError } = await supabase
-        .from("business_profiles")
-        .insert({
+        .from("business_profiles").insert({
           id: user.id,
           company_name: businessData.company_name,
           company_type: businessData.company_type || null,
@@ -198,28 +187,32 @@ export default function RegisterPage() {
           website: businessData.website || null,
           sphere: businessData.sphere || null,
         });
-      if (bizError) throw new Error(bizError.message);
-
-      setSuccess(true);
+      if (bizError) throw new Error(`business_profiles: ${bizError.message}`);
 
       const { data: { session } } = await supabase.auth.getSession();
+      return { supabase, session };
+    };
+
+    try {
+      const { supabase, session } = await Promise.race([run(), timeout]);
+      setSuccess(true);
+
       if (session) {
         window.location.href = "/app/dashboard";
       } else {
-        const { data: signInData } = await supabase.auth.signInWithPassword({
+        const { data } = await supabase.auth.signInWithPassword({
           email: businessData.email,
           password: businessData.password,
         });
-        if (signInData?.session) {
-          window.location.href = "/app/dashboard";
-        }
+        if (data?.session) window.location.href = "/app/dashboard";
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Произошла ошибка");
+      submittingRef.current = false;
     } finally {
       setIsSubmitting(false);
     }
-  }, [businessData, isSubmitting, success]);
+  }, [businessData]);
 
   // Render: step 0 = role selector
   if (!role || step === 0) {
