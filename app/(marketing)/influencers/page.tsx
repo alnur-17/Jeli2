@@ -2,222 +2,238 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Search, Scissors, ShieldOff } from "lucide-react";
+import { Gift, Link2, Search, ShieldOff, UserPlus } from "lucide-react";
 import { FeatureBar } from "@/components/marketing/FeatureBar";
 import { TwoLayerTag } from "@/components/marketing/TwoLayerTag";
 import { ScoreBreakdown } from "@/components/marketing/ScoreBreakdown";
 
 const section = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.5 },
+  transition: { duration: 0.45 },
 };
 
 const painCards = [
   {
     icon: Search,
-    title: "Ищешь сам",
-    text: "Пишешь брендам первым, тратишь время, получаешь отказы или молчание.",
-  },
-  {
-    icon: Scissors,
-    title: "Посредник забирает часть",
-    text: "Агентства и менеджеры берут свои проценты за то, что ты мог сделать сам.",
+    title: "Ищешь бренды наугад",
+    text: "Пишешь первым в директ, ждёшь ответов, половина переписок ни к чему не ведёт.",
   },
   {
     icon: ShieldOff,
-    title: "Нет гарантий",
-    text: "Работу сделал, а деньги могут прийти с задержкой или не прийти вообще.",
+    title: "Нет гарантии оплаты",
+    text: "Сделал интеграцию — а перевод задерживают или исчезают после публикации.",
+  },
+  {
+    icon: UserPlus,
+    title: "Посредники забирают долю",
+    text: "Менеджеры и агентства оставляют себе заметный процент за то, что можно делать напрямую.",
   },
 ];
 
-const twoLayerTags = [
+const parentSpheres = [
+  "Фитнес",
+  "Мода",
+  "Еда",
+  "Технологии",
+  "Бьюти",
+  "Путешествия",
+  "Образование",
+  "Финансы",
+];
+
+const twoLayerExamples = [
   {
     parent: "Фитнес",
-    children: ["Женский фитнес после родов", "Силовые тренировки"],
+    children: ["Женский фитнес после родов", "Силовые тренировки для мужчин"],
   },
   {
-    parent: "Бьюти",
-    children: ["Уходовая косметика", "Макияж для начинающих"],
+    parent: "Еда",
+    children: ["Веганская кухня", "Ресторанные обзоры Алматы"],
   },
 ];
 
 const scoreItems = [
   { label: "Engagement Rate", percent: 40 },
-  { label: "Качество комментариев (AI)", percent: 25 },
+  { label: "Качество комментариев (ИИ)", percent: 25 },
   { label: "Стабильность охватов", percent: 20 },
   { label: "Динамика роста", percent: 15 },
 ];
 
 export default function InfluencersPage() {
   return (
-    <div className="flex flex-col pt-16">
-      {/* HERO */}
-      <section className="py-24 px-6 text-center">
+    <div className="flex flex-col pt-14">
+      <section className="hero-mesh border-b border-border/60 px-5 py-16 md:py-20 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 0 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto flex flex-col items-center gap-6"
+          transition={{ duration: 0.45 }}
+          className="max-w-3xl mx-auto flex flex-col items-center gap-5"
         >
-          <p className="text-xs font-semibold tracking-widest text-brand uppercase">
-            Для инфлюенсеров
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-brand">Для инфлюенсеров</p>
           <h1 className="text-display-md md:text-display-lg font-semibold tracking-tight text-foreground text-balance">
-            Работай с брендами{" "}
-            <span className="text-brand">на своих условиях.</span>
+            Бренды, ниша и оплата — в одной платформе
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-            Jeli подбирает кампании под твою нишу и аудиторию. Оплата
-            гарантирована ещё до начала работы.
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+            Jeli подбирает кампании под ваш контент и аудиторию, фиксирует бриф и сделку внутри сервиса и
+            страхует оплату через escrow. Без бесконечных директов и «устных договорённостей».
           </p>
           <Link
             href="/register"
-            className="bg-brand text-white rounded-lg px-6 py-3 font-semibold hover:bg-brand-hover transition-colors"
+            className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-hover transition-colors"
           >
             Зарегистрироваться
           </Link>
         </motion.div>
       </section>
 
-      {/* PAIN CARDS */}
-      <motion.section {...section} className="py-16 px-6">
+      <motion.section {...section} className="py-14 px-5">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {painCards.map(({ icon: Icon, title, text }) => (
             <div
               key={title}
-              className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-4"
+              className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-4 shadow-sm"
             >
               <div className="w-10 h-10 rounded-xl bg-brand/10 flex items-center justify-center">
                 <Icon className="w-5 h-5 text-brand" />
               </div>
               <div>
                 <h3 className="font-semibold text-foreground mb-1">{title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {text}
-                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
               </div>
             </div>
           ))}
         </div>
       </motion.section>
 
-      {/* STEPS */}
-      <motion.section {...section} className="py-16 px-6 bg-muted/40">
-        <div className="max-w-3xl mx-auto flex flex-col gap-8">
-          <p className="text-xs font-semibold tracking-widest text-brand uppercase">
-            Как это работает для инфлюенсеров
-          </p>
+      <motion.section {...section} className="py-14 px-5 bg-muted/30 border-y border-border/60">
+        <div className="max-w-3xl mx-auto flex flex-col gap-6">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-brand mb-2">Регистрация и профиль</p>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-3">
+              Подключение соцсетей и данные аудитории
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+              На старте — <strong className="text-foreground">TikTok и Instagram</strong> через OAuth: платформа
+              получает реальные сигналы об аудитории (гео, возраст, пол — из аналитики подключённых аккаунтов).
+              YouTube на первом этапе не подключаем; другие площадки возможны позже.
+            </p>
+          </div>
           <div className="flex flex-col gap-3">
             <FeatureBar
-              text="Подключи Instagram, TikTok или YouTube — ИИ сам соберёт твой профиль из данных аккаунта."
-              badge="Шаг 1"
+              text="ИИ разбирает ваш контент и помогает собрать профиль: преобладающие форматы (рилсы, сторис, длинные видео, фото-посты)."
+              badge="Профиль"
               delay={0}
             />
             <FeatureBar
-              text="Смотри подборку кампаний, которые подходят под твою нишу и аудиторию. Подавай заявку в один клик."
-              badge="Шаг 2"
-              delay={0.1}
-            />
-            <FeatureBar
-              text="Создай контент, загрузи на согласование. Деньги переводятся сразу после публикации."
-              badge="Шаг 3"
-              delay={0.2}
+              text="Если OAuth ещё не доступен для всех сценариев, возможен ручной ввод с пометкой в профиле до полноценного подключения API."
+              badge="В разработке"
+              delay={0.06}
             />
           </div>
         </div>
       </motion.section>
 
-      {/* TWO-LAYER TAGS */}
-      <motion.section {...section} className="py-20 px-6">
+      <motion.section {...section} className="py-14 px-5">
         <div className="max-w-4xl mx-auto flex flex-col gap-10">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
-              Платформа знает твою нишу
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-3">
+              Двухслойные теги — ядро мэтчинга
             </h2>
-            <p className="text-muted-foreground text-base leading-relaxed">
-              Ты указываешь не просто категорию, а конкретную аудиторию — и
-              получаешь кампании, которые реально совпадают с твоим контентом.
+            <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-4">
+              Первый слой — широкая сфера ({parentSpheres.slice(0, 5).join(", ")} и др.). Второй — конкретная ниша
+              внутри неё. Так бизнес ищет не «фитнес вообще», а ту аудиторию, которая совпадает с вашим
+              контентом.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto w-full">
-            {twoLayerTags.map((tag) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {twoLayerExamples.map((tag) => (
               <TwoLayerTag key={tag.parent} parent={tag.parent} items={tag.children} />
             ))}
           </div>
         </div>
       </motion.section>
 
-      {/* SCORING */}
-      <motion.section {...section} className="py-20 px-6 bg-muted/40">
-        <div className="max-w-3xl mx-auto flex flex-col gap-10">
+      <motion.section {...section} className="py-14 px-5 bg-muted/30">
+        <div className="max-w-3xl mx-auto flex flex-col gap-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
-              Честный скоринг — больше кампаний
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-3">
+              Скоринг и отсев «мёртвых» аккаунтов
             </h2>
-            <p className="text-muted-foreground text-base leading-relaxed">
-              Jeli оценивает реальный engagement, а не количество подписчиков.
-              Чем честнее твоя аудитория — тем выше ты в подборках.
+            <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-2">
+              Считается при регистрации и обновляется. Это защита бизнеса и честная конкуренция между авторами.
             </p>
           </div>
           <ScoreBreakdown items={scoreItems} />
-        </div>
-      </motion.section>
-
-      {/* ESCROW */}
-      <motion.section {...section} className="py-20 px-6">
-        <div className="max-w-3xl mx-auto flex flex-col gap-6">
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-            Деньги уже есть до того, как ты начал
-          </h2>
-          <p className="text-muted-foreground text-base leading-relaxed">
-            Когда бренд одобряет твою заявку — деньги сразу замораживаются на
-            платформе. Ты видишь сумму и работаешь спокойно.
-          </p>
-          <div className="flex flex-col gap-3 mt-4">
-            <div className="rounded-xl border border-brand/30 bg-brand/5 p-4 flex items-center gap-3">
-              <span className="text-2xl">🔒</span>
-              <span className="text-foreground font-medium">
-                Сумма зафиксирована. Платёж защищён.
-              </span>
-            </div>
+          <div className="rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground leading-relaxed space-y-2">
+            <p className="font-medium text-foreground">На что смотрим при входе</p>
+            <p>
+              Соотношение вовлечённости к подписчикам, аномальные скачки роста (признак накрутки), качество
+              комментариев: живые ответы и диалог vs шаблоны вроде «Nice post!» и бессмысленные эмодзи, стабильность
+              охватов во времени. Аккаунты с критически низким скорингом не допускаются к платформе.
+            </p>
           </div>
         </div>
       </motion.section>
 
-      {/* AFFILIATE */}
-      <motion.section {...section} className="py-20 px-6 bg-muted/40">
+      <motion.section {...section} className="py-14 px-5">
         <div className="max-w-3xl mx-auto flex flex-col gap-6">
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-            Приводи коллег — получай бонусы
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground">
+            Оплата до начала работы
           </h2>
-          <p className="text-muted-foreground text-base leading-relaxed">
-            У каждого инфлюенсера есть реферальная ссылка. Приведи коллегу —
-            получи приоритет в выдаче или бонус от его первой сделки.
+          <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+            После одобрения сделки бренд резервирует сумму в escrow: вы видите, что бюджет есть, прежде чем
+            тратить время на съёмку. Реализация резерва в продакшене будет через казахстанское финтех-партнёрство
+            (в планах API уровня Kaspi, Halyk, Freedom и аналогов) — пока на сайте формулировки нейтральные.
           </p>
-          <div className="flex items-center gap-3 bg-brand rounded-xl p-4 text-white font-medium text-sm w-fit">
-            <span>🔗</span>
-            <span>jeli.kz/ref/твой-ник</span>
+        </div>
+      </motion.section>
+
+      <motion.section {...section} className="py-14 px-5 bg-muted/30 border-y border-border/60">
+        <div className="max-w-3xl mx-auto flex flex-col gap-5">
+          <div className="flex items-center gap-2">
+            <Gift className="h-6 w-6 text-brand" />
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground">Аффилиат для авторов</h2>
+          </div>
+          <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+            У каждого инфлюенсера будет реферальная ссылка в профиле. Привели коллегу — получаете бонус: приоритет
+            в выдаче, скидку на подписку или долю от первой сделки приведённого автора (конкретика — в правилах
+            программы на момент запуска).
+          </p>
+          <div className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
+            <Link2 className="h-4 w-4 text-brand shrink-0" aria-hidden />
+            <span>Ссылка появится в личном кабинете после регистрации.</span>
           </div>
         </div>
       </motion.section>
 
-      {/* FINAL CTA */}
-      <section className="py-20 px-6 bg-brand-light dark:bg-brand-dark text-center">
+      <section className="py-16 px-5 border-t border-border bg-muted/20">
         <motion.div
           {...section}
-          className="max-w-xl mx-auto flex flex-col items-center gap-6"
+          className="max-w-xl mx-auto flex flex-col items-center text-center gap-6"
         >
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-            Начни зарабатывать с Jeli
-          </h2>
-          <Link
-            href="/register"
-            className="bg-brand text-white rounded-lg px-6 py-3 font-semibold hover:bg-brand-hover transition-colors"
-          >
-            Зарегистрироваться бесплатно
-          </Link>
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground">Подключить аккаунты и ниши</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/register"
+              className="inline-flex items-center justify-center rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-hover transition-colors"
+            >
+              Регистрация бесплатно
+            </Link>
+            <Link
+              href="/how"
+              className="inline-flex items-center justify-center rounded-full border border-border bg-background px-6 py-2.5 text-sm font-medium hover:bg-muted/60 transition-colors"
+            >
+              Как работает
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center justify-center rounded-full border border-border bg-background px-6 py-2.5 text-sm font-medium hover:bg-muted/60 transition-colors"
+            >
+              Тарифы
+            </Link>
+          </div>
         </motion.div>
       </section>
     </div>

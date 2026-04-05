@@ -134,21 +134,22 @@ function PlanCard({ plan }: { plan: PricingPlan }) {
 
 export default function PricingPage() {
   return (
-    <div className="flex flex-col pt-16">
-      {/* HERO */}
-      <section className="py-24 px-6 text-center">
+    <div className="flex flex-col pt-14">
+      <section className="py-16 md:py-20 px-5 text-center border-b border-border/60">
         <motion.div
-          initial={{ opacity: 0, y: 0 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.45 }}
           className="max-w-2xl mx-auto flex flex-col items-center gap-4"
         >
           <h1 className="text-display-md md:text-display-lg font-semibold tracking-tight text-foreground text-balance">
-            Понятные тарифы
+            Тарифы и монетизация
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Базовый доступ — бесплатно. Полный функционал открывается по
-            подписке.
+          <p className="text-base text-muted-foreground leading-relaxed">
+            <strong className="text-foreground">Комиссия с сделки</strong> — основной доход Jeli: мы заинтересованы
+            в том, чтобы интеграции завершались честно. <strong className="text-foreground">Подписка</strong> —
+            за полный функционал (мэтчинг, кампании, расширенная аналитика, приоритеты). Базовый доступ бесплатный:
+            регистрация и просмотр.
           </p>
         </motion.div>
       </section>

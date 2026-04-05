@@ -87,14 +87,16 @@ export default function HomePage() {
           className="max-w-3xl mx-auto flex flex-col items-center gap-5"
         >
           <p className="text-sm font-medium text-muted-foreground">
-            Платформа инфлюенсер-маркетинга в Казахстане
+            AI-платформа инфлюенс-маркетинга в Казахстане
           </p>
           <h1 className="text-balance text-display-md md:text-display-lg lg:text-display-xl text-foreground max-w-[18ch] md:max-w-none">
             Реклама через инфлюенсеров — без хаоса и посредников
           </h1>
+          <p className="text-sm font-medium text-brand">Будущее рекламы — без менеджеров.</p>
           <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
-            Jeli соединяет бренды с инфлюенсерами напрямую: подбор, защищённые сделки и меньше ручной
-            работы.
+            Jeli соединяет бизнес и инфлюенсеров напрямую: умный мэтчинг, весь цикл сделки внутри платформы и
+            защита денег через escrow. Мы берём процент с успешных сделок и предлагаем подписку на полный
+            функционал — чем больше честных интеграций, тем совпадают наши интересы с вашими.
           </p>
 
           <div
