@@ -92,7 +92,7 @@ export default function BusinessesPage() {
           <p className="text-xs font-semibold tracking-widest text-brand uppercase">
             Для брендов
           </p>
-          <h1 className="font-headline text-[clamp(44px,7vw,76px)] leading-none uppercase text-foreground">
+          <h1 className="text-display-md md:text-display-lg font-semibold tracking-tight text-foreground text-balance">
             Запускай кампании{" "}
             <span className="text-brand">без лишней головной боли.</span>
           </h1>
@@ -163,7 +163,7 @@ export default function BusinessesPage() {
       <motion.section {...section} className="py-20 px-6">
         <div className="max-w-5xl mx-auto flex flex-col gap-10">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
               Платформа находит — ты выбираешь
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -202,7 +202,7 @@ export default function BusinessesPage() {
       <motion.section {...section} className="py-20 px-6">
         <div className="max-w-4xl mx-auto flex flex-col gap-10">
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-headline text-5xl md:text-6xl uppercase text-foreground leading-none mb-4">
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
               Видишь что работает
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -251,7 +251,7 @@ export default function BusinessesPage() {
           {...section}
           className="max-w-xl mx-auto flex flex-col items-center gap-6"
         >
-          <h2 className="font-headline text-5xl uppercase text-foreground leading-none">
+          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
             Начни прямо сейчас
           </h2>
           <Link
