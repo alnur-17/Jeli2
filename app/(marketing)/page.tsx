@@ -129,22 +129,26 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.1 }}
-          className="mt-14 w-full max-w-md mx-auto px-1"
+          className="mt-14 w-full max-w-md mx-auto px-1 flex flex-col items-center gap-3"
         >
-          <div className="rounded-2xl border border-border bg-card p-1 shadow-[0_32px_64px_-32px_rgba(15,23,42,0.2)]">
+          <p className="text-xs text-muted-foreground text-center max-w-sm">
+            Пример экрана: так может выглядеть карточка в каталоге (данные вымышленные, для демонстрации
+            интерфейса).
+          </p>
+          <div className="w-full rounded-2xl border border-border bg-card p-1 shadow-[0_32px_64px_-32px_rgba(15,23,42,0.2)]">
             <div className="rounded-xl bg-muted/40 px-3 py-2 flex items-center gap-2 text-xs text-muted-foreground border-b border-border/60">
               <span className="font-medium text-foreground">Каталог</span>
               <span className="opacity-40">|</span>
-              <span>Алматы</span>
+              <span>Город</span>
               <span className="opacity-40">|</span>
-              <span>Фитнес</span>
+              <span>Ниша</span>
             </div>
             <div className="p-4">
               <InfluencerCard
-                name="Айгерим С."
-                location="Алматы"
+                name="Профиль (пример)"
+                location="Казахстан"
                 parentNiche="Фитнес"
-                childNiches={["Женский фитнес после родов", "Питание"]}
+                childNiches={["Подниша 1", "Подниша 2"]}
                 score={87}
                 matchPercent={94}
                 avatarColor="#0064FF"
@@ -327,21 +331,6 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </div>
-      </motion.section>
-
-      {/* TESTIMONIAL — Peec-style quote block */}
-      <motion.section {...section} className="py-16 md:py-20 px-5 border-y border-border bg-muted/20">
-        <div className="max-w-3xl mx-auto text-center">
-          <blockquote className="text-xl md:text-2xl font-medium tracking-tight text-foreground leading-snug text-balance">
-            «Когда бренд и автор видят друг друга в одной системе — исчезает половина переписок и
-            недопониманий. Платформа как единый источник правды — это то, чего не хватало рынку».
-          </blockquote>
-          <footer className="mt-8 text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">Мария К.</span>
-            <span className="mx-2">·</span>
-            <span>Head of Marketing, ритейл</span>
-          </footer>
         </div>
       </motion.section>
 
