@@ -389,7 +389,7 @@ export default function HowPage() {
           </h2>
           <div className="max-w-none text-sm md:text-base text-muted-foreground leading-relaxed space-y-4">
             <p>
-              Категория вроде «фитнес» слишком широкая: и постpartum, и бодибилдинг попадают в один ящик. В
+              Категория вроде «фитнес» слишком широкая: и постпартум, и бодибилдинг попадают в один ящик. В
               Jeli автор указывает <strong className="text-foreground">родительскую сферу</strong> и одну или
               несколько <strong className="text-foreground">узких ниш</strong> внутри неё.
             </p>

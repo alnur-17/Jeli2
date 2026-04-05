@@ -77,10 +77,10 @@ export default function ContactsPage() {
             <div>
               <p className="font-semibold text-foreground mb-1">Для брендов</p>
               <a
-                href="mailto:brands@jeli.kz"
+                href="mailto:ersultan.aryn.wk@gmail.com"
                 className="text-brand hover:underline text-sm"
               >
-                brands@jeli.kz
+                ersultan.aryn.wk@gmail.com
               </a>
             </div>
           </div>
@@ -93,10 +93,10 @@ export default function ContactsPage() {
                 Для инфлюенсеров
               </p>
               <a
-                href="mailto:hello@jeli.kz"
+                href="mailto:ersultan.aryn.wk@gmail.com"
                 className="text-brand hover:underline text-sm"
               >
-                hello@jeli.kz
+                ersultan.aryn.wk@gmail.com
               </a>
             </div>
           </div>
